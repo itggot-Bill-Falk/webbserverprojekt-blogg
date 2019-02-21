@@ -1,0 +1,42 @@
+body {
+    margin: 0px;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 20vh auto 30vh
+
+}
+
+header {
+    display: grid;
+    grid-row: span;
+    background-color:thistle;
+    text-align: center;
+    font-size: 4em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    height: 20vh;
+    
+    
+}
+
+main {
+    display: grid;
+    grid-row: span;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+article {
+    background-color: aquamarine;
+}
+
+footer {
+    display: grid;
+    grid-row: span;
+    background-color:thistle;
+    text-align: center;
+    font-size: 3em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    height: 20vh;
+}
