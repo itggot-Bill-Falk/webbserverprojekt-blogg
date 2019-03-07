@@ -7,14 +7,6 @@ html lang="en"
         link rel="stylesheet" href="/css/main.css"/
         title Document
     body
-        container
-            header
-                .title 
-                    p r5apex Blog
-                .profile-box
-                    .login 
-                    .sign-up
-            main
-                == yield
-            footer
-                p fight me boy
+        .container
+            == slim(:header)
+            == yield
