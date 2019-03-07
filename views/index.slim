@@ -7,7 +7,7 @@ main
                     - if post["pic"] != nil
                         .pic
                             / länkar en bild med /img/ som prefix då den alltid är samma. altt ersätter bilden med text om den inte skulle visas
-                            img src="/bildmapp/#{post["pic"]}" alt="pic"
+                            img src="/img/#{post["pic"]}" alt="pic"
                     .content
                         p = post["content"]
                     .author

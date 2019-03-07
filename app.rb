@@ -48,7 +48,7 @@ post('/Register') do
 
     new_password = BCrypt::Password.create(params["Password"])
 
-    db.execute("INSERT INTO Users (username, password, picture) VALUES (?, ?, 'v1.jpeg')", [params["Username"], new_password])
+    db.execute("INSERT INTO Users (username, password, picture) VALUES (?, ?, 'v1.jpg')", [params["Username"], new_password])
 
     session["user"] = params["Username"]
     redirect('/')
