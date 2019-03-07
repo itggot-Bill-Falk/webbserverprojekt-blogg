@@ -23,7 +23,7 @@ post('/Sign_In') do
     db.results_as_hash = true
 
     finish = db.execute("SELECT id, password FROM Users WHERE username=?",  params["Username"])
-        
+
     if BCrypt::Password.new(finish[0]["password"]) == params["Password"]
         session["user"] = params["Username"]
         redirect('/')
@@ -48,7 +48,7 @@ post('/Register') do
 
     new_password = BCrypt::Password.create(params["Password"])
 
-    db.execute("INSERT INTO Users (username, password, pic) VALUES (?, ?, 'v1.jpeg')", [params["Username"], new_password])
+    db.execute("INSERT INTO Users (username, password, picture) VALUES (?, ?, 'v1.jpeg')", [params["Username"], new_password])
 
     session["user"] = params["Username"]
     redirect('/')
