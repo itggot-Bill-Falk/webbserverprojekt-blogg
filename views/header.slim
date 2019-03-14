@@ -1,10 +1,22 @@
 header
     .title 
-        p r5apex Blog
+        a href="/"
+            p r5apex Blog
     .profile-box
-        .login 
-            a href="/Sign_In"
-                input type="button" value="Sign In"
-        .sign-up
-            a href="/Register"
-                input type="button" value="Register"
+        - if session.key?("user")
+            .login
+                a href="/Profile/#{session['user']}"
+                    input type="button" value="Profile"
+            .sign-up
+                a href="/Profile/#{session['user']}/alter"
+                    input type="button" value="Alter"
+            .logout
+                form action="/logout" method="post" 
+                    button type="sumit" Logout
+        - else
+            .login 
+                a href="/Sign_In"
+                    input type="button" value="Sign In"
+            .sign-up
+                a href="/Register"
+                    input type="button" value="Register"
