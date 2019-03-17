@@ -23,6 +23,7 @@ post('/Sign_In') do
     db.results_as_hash = true
     
     finish = db.execute("SELECT id, password FROM Users WHERE username=?",  params["Username"])
+    session["Username"] = params["Username"]
     
     if finish.length == 0 
         redirect('/Sign_In')
@@ -72,6 +73,7 @@ end
 get('/Profile/:id/alter') do
     slim(:profile_edit)
     
+    
 end
 
 post('/logout') do
@@ -83,14 +85,51 @@ post('/post') do
     text = params["content"]
     db = SQLite3::Database.new 'db/blog.db'
     username = db.execute("SELECT username FROM Users WHERE id=?", [session["user"]])
-    if params["pic"].length == 0
-        pic = nil
-    else
-        pic = params["pic"]
-    end
+ 
 
-    db.execute("INSERT INTO Posts (content, user_id, author, pic) VALUES(?,?,?,?)",[params['content'],session['user'],username,pic])
+    new_file_name = SecureRandom.uuid
+    temp_file = params["image"]["tempfile"]
+    path = File.path(temp_file)
+
+    new_file = FileUtils.copy(path, "./public/img/#{new_file_name}") 
+
+    db.execute("INSERT INTO Posts (content, user_id, author, pic) VALUES(?,?,?,?)",[params['content'],session['user'],username,new_file_name])
+
+
     redirect('/')
+end
+
+post('/delete') do
+    db = SQLite3::Database.new('db/blog.db')
+    db.results_as_hash = true
+
+    p db.execute("SELECT * FROM Posts WHERE id = ?", params["post_id"])
+    p params["post_id"]
+    db.execute("DELETE FROM Posts WHERE id = ?", params["post_id"])
+
+    redirect('/')
+end 
+
+post('alter/:id') do
+    db = SQLite3::Database.new('db/blog.db')
+    db.results_as_hash = true
+
+    
+    new_file_name = SecureRandom.uuid
+    temp_file = params["image"]["tempfile"]
+    path = File.path(temp_file)
+
+    new_file = FileUtils.copy(path, "./public/img/#{new_file_name}") 
+
+    db.execute("REPLACE INTO Posts (content, user_id, author, pic, id) VALUES(?,?,?,?)",[
+        
+        params['content'],
+        session['user'],
+        username,new_file_name,
+        
+    ])
+
+
 end
 
 

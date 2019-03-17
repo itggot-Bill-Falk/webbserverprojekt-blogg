@@ -11,7 +11,11 @@ main
                     .content
                         p = post["content"]
                     .author
-                        p = post["author"]
+                        p = post["author"]                                
+                        - if session["Username"] == post["author"]
+                            form action="/delete" method="POST"
+                                input value="Delete Post" type="submit"
+                                input type="hidden" name="post_id" value="#{post["id"]}" 
                 br 
 footer
     p fight me boy

@@ -1,8 +1,10 @@
 main
-    form action="/post" method="POST" id="bubble"
+    form action="/post" method="POST" id="bubble" enctype="multipart/form-data"
         label for="content" Message:
         textarea name="content" cols="30" rows="10" id="content"
         input type="text" name="pic"
+        label for="image" Image (optional):
+        input type="file" name="image" accept="image/*" id="image"
         button type="submit" Send
     - if defined? posts
         / Lägger flera articles i wrappern 
@@ -10,7 +12,6 @@ main
             article
                 - if post["pic"] != nil
                     .pic
-                        / länkar en bild med /img/ som prefix då den alltid är samma. altt ersätter bilden med text om den inte skulle visas
                         img src="/img/#{post["pic"]}" alt="pic"
                 .content
                     p = post["content"]
